@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardBackgroundColor="#404040">
+
+    <ImageView
+        android:id="@+id/btnfavRemove"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="325dp"
+        android:layout_marginTop="5dp"
+        android:cropToPadding="false"
+        android:radius="10dp"
+        android:scaleType="center" />
+
+    <TextView
+        android:id="@+id/txt_songArtist"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="65dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/nirmala"
+        android:text="Song Title"
+        android:textAlignment="viewStart"
+        android:textColor="#FFFFFF"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/txt_songTitle"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="65dp"
+        android:fontFamily="@font/nirmala"
+        android:text="Song Title"
+        android:textAlignment="viewStart"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="2dp"
+        android:background="@drawable/bg"
+        android:elevation="12dp"
+        app:cardBackgroundColor="#404040"
+        app:cardCornerRadius="10dp">
+
+        <ImageView
+            android:id="@+id/img_Song"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="5dp"
+            android:cropToPadding="true"
+            android:radius="10dp"
+            android:scaleType="centerCrop" />
+
+    </androidx.cardview.widget.CardView>
+
+</androidx.cardview.widget.CardView>

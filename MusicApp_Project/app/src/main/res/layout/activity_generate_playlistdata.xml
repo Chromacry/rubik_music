@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".GenerateData.GenerateDataActivity">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="415dp"
+        android:layout_height="57dp"
+        android:background="@drawable/btmbar"
+        app:itemIconTint="@android:color/tab_indicator_text"
+        app:itemTextColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_bar_menu" />
+
+    <TextView
+        android:id="@+id/txtGenerateData"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Generate Playlist Data"
+        android:textColor="#FFFFFF"
+        android:textSize="40sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.466"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/txt_SongFileLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:ems="10"
+        android:hint="List of SongsID"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#B1B1B1"
+        app:layout_constraintEnd_toEndOf="@+id/txt_SongCategory"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txt_SongCategory"
+        app:layout_constraintTop_toBottomOf="@+id/txt_SongCategory" />
+
+    <EditText
+        android:id="@+id/txt_SongImageLink"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:hint="Song Image File URL"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#B1B1B1"
+        app:layout_constraintEnd_toEndOf="@+id/txt_SongFileLink"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txt_SongFileLink"
+        app:layout_constraintTop_toBottomOf="@+id/txt_SongFileLink" />
+
+    <EditText
+        android:id="@+id/txt_SongGenre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="68dp"
+        android:ems="10"
+        android:hint="Song Genre"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#B1B1B1"
+        app:layout_constraintEnd_toEndOf="@+id/txt_SongArtist"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txt_SongArtist"
+        app:layout_constraintTop_toBottomOf="@+id/txt_SongTitle" />
+
+    <EditText
+        android:id="@+id/txt_SongCategory"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:ems="10"
+        android:hint="Song Category"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#B1B1B1"
+        app:layout_constraintEnd_toEndOf="@+id/txt_SongGenre"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txt_SongGenre"
+        app:layout_constraintTop_toBottomOf="@+id/txt_SongGenre" />
+
+    <EditText
+        android:id="@+id/txt_SongArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:ems="10"
+        android:hint="Playlist Artist"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#B1B1B1"
+        app:layout_constraintEnd_toEndOf="@+id/txt_SongTitle"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txt_SongTitle"
+        app:layout_constraintTop_toBottomOf="@+id/txt_SongTitle" />
+
+    <EditText
+        android:id="@+id/txt_SongTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        android:ems="10"
+        android:hint="Playlist Title"
+        android:inputType="textPersonName"
+        android:minHeight="48dp"
+        android:textColor="#FFFFFF"
+        android:textColorHint="#B1B1B1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/btnPublish"
+        android:layout_width="217dp"
+        android:layout_height="48dp"
+        android:layout_marginTop="136dp"
+        android:text="Publish"
+        app:layout_constraintEnd_toEndOf="@+id/txt_SongFileLink"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/txt_SongFileLink"
+        app:layout_constraintTop_toBottomOf="@+id/txt_SongFileLink" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
