@@ -45,9 +45,6 @@ public class HomePage extends AppCompatActivity implements AdapterPlaylist.ListI
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_page);
         mAuth = FirebaseAuth.getInstance();
-
-//        Log.d("test", MainActivity.songCollection.get(0).getSongTitle());
-
         //Generate Grid Playlist and Songs
         playlistRecycler = findViewById(R.id.playlist_recycler);
         recommandedRecycler = findViewById(R.id.recommanded_recycler);

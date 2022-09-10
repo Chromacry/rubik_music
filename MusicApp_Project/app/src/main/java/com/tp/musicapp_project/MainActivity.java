@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ProgressBar;
 
 import com.google.firebase.database.DataSnapshot;
@@ -65,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
             }
             try {
                 getData();
+                Log.d("work", "Song: " + songCollection);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -89,8 +91,6 @@ public class MainActivity extends AppCompatActivity {
                 }
             };
             dbSongData.addListenerForSingleValueEvent(valueEventListener_song); //Get everything from songs
-
-
             ValueEventListener valueEventListener_playlist = new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
