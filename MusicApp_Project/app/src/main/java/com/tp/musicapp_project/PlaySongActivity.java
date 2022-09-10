@@ -80,7 +80,7 @@ public class PlaySongActivity extends AppCompatActivity {
         //Get Data from activity
         Bundle songData = this.getIntent().getExtras();
         currentIndexes = songData.getString("songData");
-//        musicList = songData.get("songData");
+
         if (currentIndexes != null){
             //Inputs all song data into musicList
             musicList.addAll(MainActivity.songCollection);
@@ -89,8 +89,6 @@ public class PlaySongActivity extends AppCompatActivity {
             playlistID = songData.getString("playlistID");
             getPlaylistData();
         }
-        Log.d("songid", "after :" + currentIndexes);
-
 
         // Init all id frontend stuff
         startDurationTxt = findViewById(R.id.txtStartDuration);
@@ -170,7 +168,6 @@ public class PlaySongActivity extends AppCompatActivity {
         }
     }
 
-
     // Threads
     private class pbarThread extends Thread{
         volatile boolean isRunning = true;
@@ -219,7 +216,6 @@ public class PlaySongActivity extends AppCompatActivity {
 
         //For Song Playlist Data
         playlistSongdata = (List<Object>) songPlaylistData.getSongsID();
-//        Log.d("data",playlistSongdata.get(0).toString());
 
         // Convert String SongID to Song for musicList
         for (int i = 0; i < playlistSongdata.size(); i++) {
@@ -269,8 +265,6 @@ public class PlaySongActivity extends AppCompatActivity {
             SongData tempsong = LibraryPage.favList.get(i);
             String favSongID = tempsong.getId();
             if (currentSongID.equals(favSongID)){
-                Log.d("checkData", "currentSongID :" + currentSongID);
-                Log.d("checkData", "favSongID :" + favSongID);
                 btnfavSong.setImageResource(R.drawable.addfavtick);
                 haveFavAdded = true;
                 return;
@@ -287,7 +281,7 @@ public class PlaySongActivity extends AppCompatActivity {
                 player.prepare();
                 player.start();
                 btnPlayPause.setImageResource(R.drawable.pauseicon);
-//                Log.d("name", createTimeStartEnd(player.getCurrentPosition(),player.getDuration())[1]);
+                seekbar.setMax(player.getDuration());
                 gracefullyStopMusic();
         }catch (Exception e) {
             Log.d("loadSong", "Exception : " + e);
@@ -327,7 +321,6 @@ public class PlaySongActivity extends AppCompatActivity {
 
         if (haveFavAdded == false) { //havent press
             haveFavAdded = true;
-            Log.d("btnwhy", song.getSongTitle());
             LibraryPage.favList.add(song);
 
             // Pumping into json to save later
@@ -346,7 +339,6 @@ public class PlaySongActivity extends AppCompatActivity {
             getIndexofFavData(song);
 
             LibraryPage.favList.remove(index);
-            Log.d("btnwhy", song.getSongTitle());
 
             // Pumping into json to save later
 //            String json = gson.toJson(LibraryPage.favList);
@@ -354,7 +346,6 @@ public class PlaySongActivity extends AppCompatActivity {
 //            editor.putString("myPlaylistList", json);
 //            editor.apply();
 
-            Log.d("btnwhy", song.getSongTitle() + " Apply to remove");
             btnfavSong.setImageResource(R.drawable.addfav);
             Toast.makeText(this, "Song removed from playlist!", Toast.LENGTH_SHORT).show();
 
@@ -397,9 +388,7 @@ public class PlaySongActivity extends AppCompatActivity {
 
     public void playNextPreviousMusic(View view){
         String btnID = getResources().getResourceEntryName(view.getId());
-        Log.d("btnStatus", "btnID : " + btnID);
         currentIndex = musicCollection.getNextPreviousSong(currentIndex, btnID, musicList);
-        Log.d("btnStatus", "currentIndex : " + currentIndex);
         displaySongBasedOnIndex();
         loadSong(fileLink);
     }
@@ -429,8 +418,6 @@ public class PlaySongActivity extends AppCompatActivity {
             SongData tempsong = LibraryPage.favList.get(i);
             String favSongID = tempsong.getId();
             if (currentSongID.equals(favSongID)){
-                Log.d("removeData", "currentSongID :" + currentSongID);
-                Log.d("removeData", "favSongID :" + favSongID);
                 index = i;
                 return;
             }else{
@@ -455,11 +442,9 @@ public class PlaySongActivity extends AppCompatActivity {
                     displaySongBasedOnIndex();
                     loadSong(fileLink);
                 }else{
-//                    player.release();
+                    currentIndex = musicCollection.getNextPreviousSong(currentIndex, "btnskipNext", musicList);
                     displaySongBasedOnIndex();
                     loadSong(fileLink);
-//                    btnPlayPause.setImageResource(R.drawable.playicon);
-
                 }
             }
         });
