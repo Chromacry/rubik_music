@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "829996395280",
+    "firebase_url": "https://rubik-music-app-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "project_id": "rubik-music-app",
+    "storage_bucket": "rubik-music-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:829996395280:android:1a93db4f796c7132849395",
+        "android_client_info": {
+          "package_name": "com.tp.musicapp_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "829996395280-gu4vps1bamkl3l00ldaoon43t8f94jb0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnhmz_8jIeATihNM23_8wFOmnCrY55Elw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "829996395280-gu4vps1bamkl3l00ldaoon43t8f94jb0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

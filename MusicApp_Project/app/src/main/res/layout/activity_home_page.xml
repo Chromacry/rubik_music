@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg"
+    tools:context=".HomePage">
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="415dp"
+        android:layout_height="57dp"
+        android:background="@drawable/btmbar"
+        app:itemIconTint="@color/bnv_tab_item_foreground"
+        app:itemTextColor="#FFFFFF"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:menu="@menu/bottom_nav_bar_menu" />
+
+    <ScrollView
+        android:layout_width="412dp"
+        android:layout_height="671dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/txtMusictitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:text="Music"
+                    android:textColor="#FFFFFF"
+                    android:textSize="40sp"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.052"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+                <ImageView
+                    android:id="@+id/btnHomeSettings"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:onClick="settingsClick"
+                    android:scaleType="fitEnd"
+                    app:layout_constraintBottom_toBottomOf="@+id/txtMusictitle"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.938"
+                    app:layout_constraintStart_toEndOf="@+id/txtMusictitle"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/settingsicon" />
+
+                <LinearLayout
+                    android:id="@+id/layoutRecentlyPlayed"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txtMusictitle"
+                    tools:context=".MainActivity">
+
+                    <ScrollView
+                        android:layout_width="399dp"
+                        android:layout_height="256dp"
+                        android:background="@drawable/bg">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:ignore="UselessParent">
+
+                                <ImageView
+                                    android:id="@+id/txtTda"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:srcCompat="@drawable/recommandedtext" />
+
+                            </RelativeLayout>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/recommanded_recycler"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+                        </LinearLayout>
+                    </ScrollView>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutGoodMorning"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@+id/layoutRecentlyPlayed"
+                    app:layout_constraintStart_toStartOf="@+id/layoutRecentlyPlayed"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutRecentlyPlayed"
+                    tools:context=".MainActivity">
+
+                    <ScrollView
+                        android:layout_width="399dp"
+                        android:layout_height="249dp"
+                        android:background="@drawable/bg">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:ignore="UselessParent">
+
+                                <ImageView
+                                    android:id="@+id/txtGoodMorning"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:srcCompat="@drawable/goodmorningtxt" />
+
+                                <TextView
+                                    android:layout_width="64dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="view_all"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    tools:ignore="RelativeOverlap" />
+                            </RelativeLayout>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/playlist_recycler"
+                                android:layout_width="386dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg"></androidx.recyclerview.widget.RecyclerView>
+
+                        </LinearLayout>
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutPopular"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@+id/layoutGoodMorning"
+                    app:layout_constraintStart_toStartOf="@+id/layoutGoodMorning"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutGoodMorning"
+                    tools:context=".MainActivity">
+
+                    <ScrollView
+                        android:layout_width="399dp"
+                        android:layout_height="299dp"
+                        android:background="@drawable/bg">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:ignore="UselessParent">
+
+                                <ImageView
+                                    android:id="@+id/txtPopular"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:srcCompat="@drawable/populartxt" />
+
+                                <TextView
+                                    android:layout_width="64dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="view_all"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    tools:ignore="RelativeOverlap" />
+                            </RelativeLayout>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/popular_recycler"
+                                android:layout_width="386dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg"></androidx.recyclerview.widget.RecyclerView>
+
+                        </LinearLayout>
+                    </ScrollView>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutMood"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="@+id/layoutPopular"
+                    app:layout_constraintStart_toStartOf="@+id/layoutPopular"
+                    app:layout_constraintTop_toBottomOf="@+id/layoutPopular"
+                    tools:context=".MainActivity">
+
+                    <ScrollView
+                        android:layout_width="399dp"
+                        android:layout_height="299dp"
+                        android:background="@drawable/bg">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                tools:ignore="UselessParent">
+
+                                <ImageView
+                                    android:id="@+id/txtMood"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="8dp"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:srcCompat="@drawable/moodtxt" />
+
+                                <TextView
+                                    android:layout_width="64dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentEnd="true"
+                                    android:layout_centerVertical="true"
+                                    android:text="view_all"
+                                    android:textColor="#FFFFFF"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold"
+                                    tools:ignore="RelativeOverlap" />
+                            </RelativeLayout>
+
+                            <androidx.recyclerview.widget.RecyclerView
+                                android:id="@+id/mood_recycler"
+                                android:layout_width="386dp"
+                                android:layout_height="wrap_content"
+                                android:background="@drawable/bg"></androidx.recyclerview.widget.RecyclerView>
+
+                        </LinearLayout>
+                    </ScrollView>
+
+                </LinearLayout>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
