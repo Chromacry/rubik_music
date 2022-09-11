@@ -26,11 +26,7 @@ import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
     private ProgressBar progressBar;
-    DatabaseReference dbSongData = FirebaseDatabase.getInstance().getReference("songCollection");
-    DatabaseReference dbSongPlaylistData = FirebaseDatabase.getInstance().getReference("playlistCollection");
-    static public ArrayList<SongData> songCollection = new ArrayList<SongData>();
-    static public ArrayList<SongPlaylistData> playlistCollection = new ArrayList<SongPlaylistData>();;
-    getDataThread getDataThread = new getDataThread();
+    runPbarThread runPbarThread = new runPbarThread();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,22 +37,12 @@ public class MainActivity extends AppCompatActivity {
         progressBar.setScaleY(2f);
 
         //progressbar to change activity
-        progressAnimation();
+        runPbarThread.isRunning = true;
+        runPbarThread.start();
 
-
-        // Runs getData in thread
-        getDataThread.isRunning = true;
-        getDataThread.start();
     }
-
-    private void progressAnimation() {
-
-        ProgressAnimation animation = new ProgressAnimation(this, progressBar, 0f, 100f);
-        animation.setDuration(4000);
-        progressBar.setAnimation(animation);
-    }
-
-    private class getDataThread extends Thread {
+    //Thread
+    private class runPbarThread extends Thread {
         volatile boolean isRunning = true;
 
         @Override
@@ -65,53 +51,19 @@ public class MainActivity extends AppCompatActivity {
                 return;
             }
             try {
-                getData();
-                Log.d("work", "Song: " + songCollection);
+                progressAnimation();
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-
-        public void getData() {
-            ValueEventListener valueEventListener_song = new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                    songCollection.clear();
-                    if (dataSnapshot.exists()) {
-                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                            SongData songData = snapshot.getValue(SongData.class);
-                            songCollection.add(songData);
-                        }
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            };
-            dbSongData.addListenerForSingleValueEvent(valueEventListener_song); //Get everything from songs
-            ValueEventListener valueEventListener_playlist = new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                        playlistCollection.clear();
-                        if (dataSnapshot.exists()) {
-                            for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                                SongPlaylistData songData =snapshot.getValue(SongPlaylistData.class);
-                                playlistCollection.add(songData);
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                };
-            dbSongPlaylistData.addListenerForSingleValueEvent(valueEventListener_playlist); //Get everything from playlist
-
+        private void progressAnimation() {
+            ProgressAnimation animation = new ProgressAnimation(MainActivity.this, progressBar, 0f, 100f);
+            animation.setDuration(4000);
+            progressBar.setAnimation(animation);
         }
     }
+
+
 }
 //    Query querySearch = dbSongData.orderByChild("songTitle"); //Search specifically
 //        querySearch.addListenerForSingleValueEvent(valueEventListener_song);

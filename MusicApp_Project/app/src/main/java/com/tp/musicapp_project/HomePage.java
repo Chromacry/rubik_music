@@ -37,9 +37,16 @@ public class HomePage extends AppCompatActivity implements AdapterPlaylist.ListI
     RecyclerView playlistRecycler, recommandedRecycler, popularRecycler, moodRecycler;
     RecyclerView.Adapter playlistadapter, recommandedadapter, popularadapter, moodadapter;
 
-    DatabaseReference dbSongData, dbSongPlaylistData;
+    DatabaseReference dbSongData = FirebaseDatabase.getInstance().getReference("songCollection");
+    DatabaseReference dbSongPlaylistData = FirebaseDatabase.getInstance().getReference("playlistCollection");
     public ArrayList<SongData> recommandedlocations, popularlocations, moodlocations;
     static ArrayList<SongPlaylistData> playlistlocations;
+
+    // Song and playlist Data
+    static public ArrayList<SongData> songCollection = new ArrayList<SongData>();
+    static public ArrayList<SongPlaylistData> playlistCollection = new ArrayList<SongPlaylistData>();;
+    getRecycleDataThread getRecycleDataThread = new getRecycleDataThread();
+    getDataThread getDataThread = new getDataThread();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +86,173 @@ public class HomePage extends AppCompatActivity implements AdapterPlaylist.ListI
     // Settings page
     public void settingsClick(View view){
 //        startActivity(new Intent(this, GenerateDataActivity.class)); // For adding Songs Data
-        startActivity(new Intent(this, GeneratePlaylistDataActivity.class)); // For adding Playlist Data
+        startActivity(new Intent(this, GenerateDataActivity.class)); // For adding Playlist Data
+    }
+
+
+    //Threads
+    private class getDataThread extends Thread {
+        volatile boolean isRunning = true;
+
+        @Override
+        public void run() {
+            if (!isRunning) {
+                return;
+            }
+            try {
+                getData();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        public void getData() {
+            ValueEventListener valueEventListener_song = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    songCollection.clear();
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            SongData songData = snapshot.getValue(SongData.class);
+                            songCollection.add(songData);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            };
+            dbSongData.addListenerForSingleValueEvent(valueEventListener_song); //Get everything from songs
+            ValueEventListener valueEventListener_playlist = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    playlistCollection.clear();
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            SongPlaylistData songData =snapshot.getValue(SongPlaylistData.class);
+                            playlistCollection.add(songData);
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            };
+            dbSongPlaylistData.addListenerForSingleValueEvent(valueEventListener_playlist); //Get everything from playlist
+
+        }
+    }
+    private class getRecycleDataThread extends Thread {
+        volatile boolean isRunning = true;
+
+        @Override
+        public void run() {
+            if (!isRunning) {
+                return;
+            }
+            try {
+                getData();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+
+        public void getData() {
+            ValueEventListener valueEventListener_recommanded = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    recommandedlocations.clear();
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            SongData songData = snapshot.getValue(SongData.class);
+                            recommandedlocations.add(songData);
+                        }
+                        recommandedadapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            };
+            ValueEventListener valueEventListener_playlist = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    playlistlocations.clear();
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            SongPlaylistData songData = snapshot.getValue(SongPlaylistData.class);
+                            playlistlocations.add(songData);
+                        }
+                        playlistadapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            };
+            ValueEventListener valueEventListener_popular = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    popularlocations.clear();
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            SongData songData = snapshot.getValue(SongData.class);
+                            popularlocations.add(songData);
+                        }
+                        popularadapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            };
+            ValueEventListener valueEventListener_mood = new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                    moodlocations.clear();
+                    if (dataSnapshot.exists()) {
+                        for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+                            SongData songData = snapshot.getValue(SongData.class);
+                            moodlocations.add(songData);
+                        }
+                        moodadapter.notifyDataSetChanged();
+                    }
+                }
+
+                @Override
+                public void onCancelled(@NonNull DatabaseError error) {
+
+                }
+            };
+
+            // Grid Data
+            //Recommanded Data
+            Query queryRecommanded = dbSongData.orderByChild("songCategory").equalTo("Recommanded");
+            queryRecommanded.addListenerForSingleValueEvent(valueEventListener_recommanded);
+            //GoodMorning Playlist Data
+            dbSongPlaylistData = FirebaseDatabase.getInstance().getReference("playlistCollection");
+            Query queryGoodMorning = dbSongPlaylistData.orderByChild("songCategory").equalTo("GoodMorning");
+            queryGoodMorning.addListenerForSingleValueEvent(valueEventListener_playlist);
+            // Set Popular Data
+            dbSongData = FirebaseDatabase.getInstance().getReference("songCollection");
+            Query queryPopular = dbSongData.orderByChild("songCategory").equalTo("Popular");
+            queryPopular.addListenerForSingleValueEvent(valueEventListener_popular);
+//        dbSongData.addListenerForSingleValueEvent(valueEventListener_popular); //grab everything in Database
+
+            //Mood Data
+            dbSongData = FirebaseDatabase.getInstance().getReference("songCollection");
+            Query queryMood = dbSongData.orderByChild("songCategory").equalTo("Mood");
+            queryMood.addListenerForSingleValueEvent(valueEventListener_mood);
+        }
     }
     //Grid Generator
     private void objRecycler() {
@@ -104,98 +277,12 @@ public class HomePage extends AppCompatActivity implements AdapterPlaylist.ListI
         moodlocations = new ArrayList<>();
 
         //ValueEventListener for Firebase database
-        ValueEventListener valueEventListener_recommanded = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                recommandedlocations.clear();
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        SongData songData = snapshot.getValue(SongData.class);
-                        recommandedlocations.add(songData);
-                    }
-                    recommandedadapter.notifyDataSetChanged();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-        ValueEventListener valueEventListener_playlist = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                playlistlocations.clear();
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        SongPlaylistData songData = snapshot.getValue(SongPlaylistData.class);
-                        playlistlocations.add(songData);
-                    }
-                    playlistadapter.notifyDataSetChanged();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-        ValueEventListener valueEventListener_popular = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                popularlocations.clear();
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        SongData songData = snapshot.getValue(SongData.class);
-                        popularlocations.add(songData);
-                    }
-                    popularadapter.notifyDataSetChanged();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-        ValueEventListener valueEventListener_mood = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                moodlocations.clear();
-                if(dataSnapshot.exists()){
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()){
-                        SongData songData = snapshot.getValue(SongData.class);
-                        moodlocations.add(songData);
-                    }
-                    moodadapter.notifyDataSetChanged();
-                }
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        };
-
-
-        dbSongData = FirebaseDatabase.getInstance().getReference("songCollection");
-//        dbSongPlaylistData = FirebaseDatabase.getInstance().getReference("songPlaylistCollection");
-        // Grid Data
-        //Recommanded Data
-
-        Query queryRecommanded = dbSongData.orderByChild("songCategory").equalTo("Recommanded");
-        queryRecommanded.addListenerForSingleValueEvent(valueEventListener_recommanded);
-        //GoodMorning Playlist Data
-        dbSongPlaylistData = FirebaseDatabase.getInstance().getReference("playlistCollection");
-        Query queryGoodMorning = dbSongPlaylistData.orderByChild("songCategory").equalTo("GoodMorning");
-        queryGoodMorning.addListenerForSingleValueEvent(valueEventListener_playlist);
-        // Set Popular Data
-        dbSongData = FirebaseDatabase.getInstance().getReference("songCollection");
-        Query queryPopular = dbSongData.orderByChild("songCategory").equalTo("Popular");
-        queryPopular.addListenerForSingleValueEvent(valueEventListener_popular);
-//        dbSongData.addListenerForSingleValueEvent(valueEventListener_popular); //grab everything in Database
-
-        //Mood Data
-        dbSongData = FirebaseDatabase.getInstance().getReference("songCollection");
-        Query queryMood = dbSongData.orderByChild("songCategory").equalTo("Mood");
-        queryMood.addListenerForSingleValueEvent(valueEventListener_mood);
-
+        // For RecycleView Data
+        getRecycleDataThread.isRunning = true;
+        getRecycleDataThread.start();
+        // For Song Data
+        getDataThread.isRunning = true;
+        getDataThread.start();
 
         //Adapters
         //Recommanded Adapter
