@@ -76,8 +76,8 @@ public class PlaylistPage extends AppCompatActivity {
 
         //Add song into arraylist after query in arraylist by stringID
         for (int i = 0; i < playlistSongdata.size(); i++) {
-            int tempIndex = musicCollection.searchSongById(playlistSongdata.get(i).toString(), MainActivity.songCollection);
-            SongData songdata = musicCollection.getCurrentSong(tempIndex, MainActivity.songCollection);
+            int tempIndex = musicCollection.searchSongById(playlistSongdata.get(i).toString(), HomePage.songCollection);
+            SongData songdata = musicCollection.getCurrentSong(tempIndex, HomePage.songCollection);
             playlistSongs.add(songdata);
         }
 

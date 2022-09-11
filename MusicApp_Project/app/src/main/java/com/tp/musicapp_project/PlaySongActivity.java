@@ -83,7 +83,7 @@ public class PlaySongActivity extends AppCompatActivity {
 
         if (currentIndexes != null){
             //Inputs all song data into musicList
-            musicList.addAll(MainActivity.songCollection);
+            musicList.addAll(HomePage.songCollection);
             currentIndex = musicCollection.searchSongById(currentIndexes, musicList);
         }else{
             playlistID = songData.getString("playlistID");
@@ -219,8 +219,8 @@ public class PlaySongActivity extends AppCompatActivity {
 
         // Convert String SongID to Song for musicList
         for (int i = 0; i < playlistSongdata.size(); i++) {
-            int tempIndex = musicCollection.searchSongById(playlistSongdata.get(i).toString(), MainActivity.songCollection);
-            SongData songdata = musicCollection.getCurrentSong(tempIndex, MainActivity.songCollection);
+            int tempIndex = musicCollection.searchSongById(playlistSongdata.get(i).toString(), HomePage.songCollection);
+            SongData songdata = musicCollection.getCurrentSong(tempIndex, HomePage.songCollection);
             musicList.add(songdata);
         }
     }
@@ -373,13 +373,13 @@ public class PlaySongActivity extends AppCompatActivity {
             if (shuffleMusic == false){
                 shuffleMusic = true;
                 btnShuffle.setImageResource(R.drawable.shuffleiconpinkred);
-                musicList = musicCollection.getShuffleList(MainActivity.songCollection);
+                musicList = musicCollection.getShuffleList(HomePage.songCollection);
 
             }else{
                 shuffleMusic = false;
                 btnShuffle.setImageResource(R.drawable.shuffleiconwhite);
                 // Set back to original
-                MainActivity.songCollection.addAll(musicList);
+                HomePage.songCollection.addAll(musicList);
             }
         }catch(Exception e){
             Log.d("PlayerRepeatBtn", "Exception: " + e);

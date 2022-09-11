@@ -85,7 +85,7 @@ public class SearchPage extends AppCompatActivity {
             }
         };
 
-        adaptersearch = new AdapterSearch(MainActivity.songCollection, this);
+        adaptersearch = new AdapterSearch(HomePage.songCollection, this);
         searchresultsrecycler.setAdapter(adaptersearch);
 
         if (searchView != null){

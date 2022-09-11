@@ -55,10 +55,10 @@ public class MusicCollection {
 
     //Playlist Stuff
     public SongPlaylistData getPlaylistDetails(String songID){
-        for (int i = 0; i < MainActivity.playlistCollection.size(); i++) {
-            String dataSongID = MainActivity.playlistCollection.get(i).id;
+        for (int i = 0; i < HomePage.playlistCollection.size(); i++) {
+            String dataSongID = HomePage.playlistCollection.get(i).id;
             if (songID.equals(dataSongID)){
-                SongPlaylistData songPlaylistData = MainActivity.playlistCollection.get(i);
+                SongPlaylistData songPlaylistData = HomePage.playlistCollection.get(i);
                 return songPlaylistData;
             }
         }
