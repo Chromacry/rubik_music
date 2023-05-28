@@ -20,7 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Login extends AppCompatActivity implements View.OnClickListener {
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://rubik-music.firebasedatabase.app/");
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("");
     private FirebaseAuth mAuth;
     private EditText username, password;
     private ImageButton loginBtn, loginBackBtn;
