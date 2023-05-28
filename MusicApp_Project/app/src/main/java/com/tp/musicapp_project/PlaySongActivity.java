@@ -32,7 +32,7 @@ import java.util.List;
 
 public class PlaySongActivity extends AppCompatActivity {
     // Datastore and database
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://rubik-music-app-default-rtdb.asia-southeast1.firebasedatabase.app/");
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("");
     private FirebaseAuth mAuth;
     Gson gson = new Gson();
     SharedPreferences sharedPreferences;
