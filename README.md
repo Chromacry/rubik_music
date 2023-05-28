@@ -15,3 +15,5 @@ Watch the video demonstration for more detail...
 - Search music and play it on the query item
 - Play a music playlist
 - Add songs to your favourites
+- Music Controls(Play/Pause, Skip/Previous, Loop, Shuffle) with device synced volume bar
+- Multi threading for seek bar.
