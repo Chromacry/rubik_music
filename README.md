@@ -1,2 +1,2 @@
-# TP_MusicApp
+# Rubik Music
 MusicApp Project
