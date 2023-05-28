@@ -24,7 +24,7 @@ import java.util.List;
 public class GeneratePlaylistDataActivity extends AppCompatActivity {
     EditText editSongTitle, editSongArtist, editSongGenre, editSongCategory, editSongFileLink, editSongImageLink;
     Button btnPublish;
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://rubik-music-app-default-rtdb.asia-southeast1.firebasedatabase.app/");
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("");
 
     //List to store all the music from firebase database
     List<GenerateSongData> songsData;
