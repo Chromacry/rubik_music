@@ -21,7 +21,7 @@ import com.tp.musicapp_project.OtherClasses.User;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
     // Import Firebase Class Database Reference Repo
-    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("https://rubik-music-app-default-rtdb.asia-southeast1.firebasedatabase.app/");
+    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReferenceFromUrl("");
     private FirebaseAuth mAuth;
     private EditText email, username, password, confirmpassword;
     private ImageButton signupBtn;
